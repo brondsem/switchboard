@@ -49,12 +49,12 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel
           python -m pip install --upgrade tox
 
-      - name: Run tox targets for ${{ matrix.python-version }}
-        # sed is used to remove the '.' so '3.7' becomes '37' for tox (and pypy3 doesn't become pypypy3)
-        run: tox -e py`echo ${{ matrix.python-version }} | sed s/\\\.// | sed s/pypy/py/`
-
-      - name: Run coverage
-        run: make test-coverage
+#      - name: Run tox targets for ${{ matrix.python-version }}
+#        # sed is used to remove the '.' so '3.7' becomes '37' for tox (and pypy3 doesn't become pypypy3)
+#        run: tox -e py`echo ${{ matrix.python-version }} | sed s/\\\.// | sed s/pypy/py/`
+#
+#      - name: Run coverage
+#        run: make test-coverage
 
       - name: Run functional-test
         # TODO: have this be part of the venv, and part of tox perhaps
