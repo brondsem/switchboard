@@ -8,8 +8,8 @@ test:
 	tox
 
 functional-test:
-	python example/server.py &
-	pytest example/tests.py
+	python example/server.py
+	#pytest example/tests.py
 
 test-coverage:
 	tox -e coverage
