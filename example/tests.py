@@ -17,6 +17,9 @@ example``, the example app should already be running in another console.
 
 from __future__ import unicode_literals
 from __future__ import absolute_import
+
+import os
+
 from splinter import Browser
 
 from switchboard import configure
@@ -29,7 +32,8 @@ from switchboard.models import (
 
 configure()
 
-url = 'http://localhost:8080/'
+url = f'http://{os.environ["HN"]}:8080/'
+print('got', url)
 admin_url = url + '_switchboard/'
 
 
@@ -46,7 +50,7 @@ def assert_switch_inactive(browser, url=url):
 class TestAdmin(object):
     @classmethod
     def setup_class(cls):
-        cls.b = Browser(driver_name='remote', command_executor='http://localhost:4444', headless=True)
+        cls.b = Browser(driver_name='remote', command_executor='http://localhost:4444')
         # Ensure we're working with a clean slate.
         Switch.c.drop()
 
