@@ -8,8 +8,8 @@ test:
 	tox
 
 functional-test:
-	python example/server.py > /dev/null 2>&1 & echo $$! > $(SERVER_PID)
-	HN=`hostname` pytest example/tests.py; ret=$$?; kill -9 `cat $(SERVER_PID)`; rm $(SERVER_PID); exit $$ret
+	python example/server.py & echo $$! > $(SERVER_PID)
+	pytest example/tests.py; ret=$$?; kill -9 `cat $(SERVER_PID)`; rm $(SERVER_PID); exit $$ret
 
 test-coverage:
 	tox -e coverage

@@ -32,8 +32,7 @@ from switchboard.models import (
 
 configure()
 
-url = f'http://{os.environ["HN"]}:8080/'
-print('got', url)
+url = f'http://localhost:8080/'
 admin_url = url + '_switchboard/'
 
 
