@@ -31,6 +31,10 @@ jobs:
         image: mongo:4  # from docker hub
         ports:
           - 27017:27017
+      firefox:
+        image: selenium/standalone-firefox:4  # from docker hub
+        ports:
+          - 4444:4444
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
