@@ -32,7 +32,7 @@ from switchboard.models import (
 
 configure()
 
-url = f'http://localhost:8080/'
+url = f'http://localhost:4588/'
 admin_url = url + '_switchboard/'
 
 
