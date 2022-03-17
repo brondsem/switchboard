@@ -46,7 +46,8 @@ def assert_switch_inactive(browser, url=url):
 class TestAdmin(object):
     @classmethod
     def setup_class(cls):
-        cls.b = Browser()
+        cls.b = Browser(command_executor='http://localhost:4444')
+        # cls.browser = Browser(driver_name='remote', browser='chrome', headless=True,
         # Ensure we're working with a clean slate.
         Switch.c.drop()
 

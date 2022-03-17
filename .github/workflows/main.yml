@@ -22,9 +22,9 @@ jobs:
       matrix:
         python-version:
           - 3.7
-          - 3.8
-          - 3.9
-          - "3.10"
+#          - 3.8
+#          - 3.9
+#          - "3.10"
 
     services:
       mongodb:
@@ -58,7 +58,6 @@ jobs:
 
       - name: Run functional-test
         run: |
-          npm install -g geckodriver
           make install
           make functional-test
 
