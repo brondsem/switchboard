@@ -9,7 +9,7 @@ test:
 
 functional-test:
 	python -u example/server.py &
-	#pytest example/tests.py
+	pytest example/tests.py
 
 test-coverage:
 	tox -e coverage
