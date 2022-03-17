@@ -6,7 +6,6 @@ from switchboard import operator, configure
 from switchboard.middleware import SwitchboardMiddleware
 from switchboard.admin import app as switchboard
 
-print('starting')
 configure({'mongo_timeout': 1000})
 
 app = Bottle()
@@ -28,6 +27,5 @@ def trailing_slash():
 
 app = SwitchboardMiddleware(app)
 
-print('listening')
 run(app, host='localhost', port=8080, debug=True,
     reloader=False)

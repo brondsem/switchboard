@@ -31,10 +31,10 @@ jobs:
         image: mongo:4  # from docker hub
         ports:
           - 27017:27017
-      firefox:
-        image: selenium/standalone-firefox:4  # from docker hub
-        ports:
-          - 4444:4444
+#      firefox:
+#        image: selenium/standalone-firefox:4  # from docker hub
+#        ports:
+#          - 4444:4444
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -55,6 +55,12 @@ jobs:
 #
 #      - name: Run coverage
 #        run: make test-coverage
+
+      - name: Start Selenium docker daemon
+        run: docker run --name selenium --rm -d --network=host -v /dev/shm:/dev/shm selenium/standalone-firefox:4
+
+      - name: Wait until the Selenium instance is ready
+        run: until nc -w 1 127.0.0.1 4444; do sleep 1; done
 
       - name: Run functional-test
         # TODO: have this be part of the venv, and part of tox perhaps
