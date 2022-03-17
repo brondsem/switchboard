@@ -59,6 +59,9 @@ jobs:
       - name: Run functional-test
         # TODO: have this be part of the venv, and part of tox perhaps
         run: |
+          env
+          ifconfig
+          hostname
           make install
           make functional-test
 
