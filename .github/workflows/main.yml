@@ -54,6 +54,7 @@ jobs:
 
       - name: Run functional-test
         run: |
+          npm install -g geckodriver
           make install
           make functional-test
 
