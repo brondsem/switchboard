@@ -57,6 +57,7 @@ jobs:
         run: make test-coverage
 
       - name: Run functional-test
+        # TODO: have this be part of the venv, and part of tox perhaps
         run: |
           make install
           make functional-test
