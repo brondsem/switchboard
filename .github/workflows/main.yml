@@ -53,8 +53,6 @@ jobs:
         # TODO kind of redundant with main `tox` run above
         run: |
           make test-coverage
-          # "codecov" needs xml format, not .coverage file:
-          coverage xml
 
       # run docker directly rather than a `services` entry above, because --network=host is needed for selenium to reach our localhost:8080 server
       - name: Start Selenium docker daemon
