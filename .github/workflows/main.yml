@@ -31,10 +31,6 @@ jobs:
         image: mongo:4  # from docker hub
         ports:
           - 27017:27017
-#      firefox:
-#        image: selenium/standalone-firefox:4  # from docker hub
-#        ports:
-#          - 4444:4444
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -53,9 +49,10 @@ jobs:
 #        # sed is used to remove the '.' so '3.7' becomes '37' for tox (and pypy3 doesn't become pypypy3)
 #        run: tox -e py`echo ${{ matrix.python-version }} | sed s/\\\.// | sed s/pypy/py/`
 #
-#      - name: Run coverage
-#        run: make test-coverage
+      - name: Run coverage
+        run: make test-coverage
 
+      # run docker directly rather than a `services` entry above, because --network=host is needed for selenium to reach our localhost:8080 server
       - name: Start Selenium docker daemon
         run: docker run --name selenium --rm -d --network=host -v /dev/shm:/dev/shm selenium/standalone-firefox:4
 
@@ -66,7 +63,7 @@ jobs:
         # TODO: have this be part of the venv, and part of tox perhaps
         run: |
           make install
-          make functional-test
+          SELENIUM_REMOTE=1 make functional-test
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2

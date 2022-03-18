@@ -49,7 +49,14 @@ def assert_switch_inactive(browser, url=url):
 class TestAdmin(object):
     @classmethod
     def setup_class(cls):
-        cls.b = Browser(driver_name='remote', command_executor='http://localhost:4444')
+        browser_kwargs = {}
+        if os.environ.get('SELENIUM_REMOTE'):
+            browser_kwargs = dict(
+                driver_name='remote',
+                command_executor='http://localhost:4444',
+            )
+        cls.b = Browser(**browser_kwargs)
+
         # Ensure we're working with a clean slate.
         Switch.c.drop()
 
