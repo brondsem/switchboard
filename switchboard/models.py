@@ -472,5 +472,5 @@ class Switch(VersioningMongoModel):
         vc = self._versioned_collection()
         return list(vc.find(
             dict(switch_id=self._id),
-            sort=('timestamp', DESCENDING),
+            sort=[('timestamp', DESCENDING)],
         ))
