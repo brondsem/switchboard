@@ -22,9 +22,9 @@ jobs:
       matrix:
         python-version:
           - 3.7
-#          - 3.8
-#          - 3.9
-#          - "3.10"
+          - 3.8
+          - 3.9
+          - "3.10"
 
     services:
       mongodb:
@@ -45,12 +45,16 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel
           python -m pip install --upgrade tox
 
-#      - name: Run tox targets for ${{ matrix.python-version }}
-#        # sed is used to remove the '.' so '3.7' becomes '37' for tox (and pypy3 doesn't become pypypy3)
-#        run: tox -e py`echo ${{ matrix.python-version }} | sed s/\\\.// | sed s/pypy/py/`
-#
+      - name: Run tox targets for ${{ matrix.python-version }}
+        # sed is used to remove the '.' so '3.7' becomes '37' for tox (and pypy3 doesn't become pypypy3)
+        run: tox -e py`echo ${{ matrix.python-version }} | sed s/\\\.// | sed s/pypy/py/`
+
       - name: Run coverage
-        run: make test-coverage
+        # TODO kind of redundant with main `tox` run above
+        run: |
+          make test-coverage
+          # "codecov" needs xml format, not .coverage file:
+          coverage xml
 
       # run docker directly rather than a `services` entry above, because --network=host is needed for selenium to reach our localhost:8080 server
       - name: Start Selenium docker daemon
@@ -60,7 +64,7 @@ jobs:
         run: until nc -w 1 127.0.0.1 4444; do sleep 1; done
 
       - name: Run functional-test
-        # TODO: have this be part of the venv, and part of tox perhaps
+        # TODO: have this be part of a venv, and part of tox perhaps
         run: |
           make install
           SELENIUM_REMOTE=1 make functional-test
